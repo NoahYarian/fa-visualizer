@@ -57,3 +57,13 @@ html, body, .center1, .center2 {
   -moz-user-select: none;
   user-select: none;
 }
+
+.options {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 30px;
+  width: 300px;
+  background: black;
+  color: #fafafa;
+}

@@ -1,18 +1,24 @@
 console.log('main.js is loaded');
 
-var size = 150;
+var settings = {
+  size: 150,
+  luminosity: 'light',
+  colorCombo: 'splitcomplement',
+  svg: false,
+  icons: 'random',
+}
 
 $(function() {
   console.log('jQuery and the document are loaded');
 
-  makeElements(size);
+  makeElements(settings.size);
   changeAllIcons();
 });
 
 
 $(window).resize(function() {
   clearElements();
-  makeElements(size);
+  makeElements(settings.size);
   changeAllIcons();
 });
 
@@ -38,22 +44,46 @@ function changeSomeIcons() {
 
 function changeAllIcons() {
   $('.icon').each(function() {
-      changeIcon(this);
+    changeIcon(this);
   });
 }
 
 function changeIcon(element) {
   var colors = getColors();
-      $(element)
-        .css('background', colors[0])
-        .css('border', '10px solid ' + colors[1])
-        .children('i')
-          .html(getRandIcon())
-          .css('color', colors[2]);
+    $(element)
+      .css('background', colors[0])
+      .css('border', '10px solid ' + colors[1])
+      .children('i')
+        .html(getRandIcon())
+        .css('color', colors[2]);
 }
 
 function getColors() {
-  var colors = tinycolor(randomColor({luminosity: 'light'})).tetrad()
+  var color = tinycolor(randomColor({luminosity: settings.luminosity}));
+  var colors;
+
+  switch (settings.colorCombo) {
+    case 'analogous':
+      colors = color.analogous({results: 3});
+    break;
+
+    case 'monochromatic':
+      colors = color.monochromatic({results: 3});
+    break;
+
+    case 'splitcomplement':
+      colors = color.splitcomplement();
+    break;
+
+    case 'triad':
+      colors = color.triad();
+    break;
+
+    case 'tetrad':
+      colors = color.tetrad();
+    break;
+  }
+
   return colors.map(function(t) {
     return t.toHexString();
   });

@@ -14,5 +14,19 @@ html
     .center1
       .center2
         .container
+    .options
+      select(name='colorCombo')
+        option(value='analogous') analogous
+        option(value='monochromatic') monochromatic
+        option(value='splitcomplement' selected) splitcomplement
+        option(value='triad') triad
+        option(value='tetrad') tetrad
+      select(name='luminosity')
+        option(value='bright' selected) bright
+        option(value='light') light
+        option(value='dark') dark
+      select(name='random')
+        option(value='one') one
+        option(value='full' selected) full
     script(src='lib/build.js')
     script(src='main.js')

@@ -11,7 +11,9 @@ $(function() {
 
 
 $(window).resize(function() {
-  console.log($(document).width(), $(document).height());
+  clearElements();
+  makeElements(size);
+  changeAllIcons();
 });
 
 $(document).click(changeSomeIcons);
@@ -57,24 +59,43 @@ function getColors() {
   });
 }
 
-function getColorPair(hue) {
-  var colors = [
-    randomColor({luminosity: 'bright', hue: hue}),
-    randomColor({luminosity: 'bright', hue: hue})
-  ];
-  var readability = tinycolor.readability(colors[0], colors[1]);
-  if (readability < 2) {
-    console.log(readability);
-    console.log('getting another set of colors');
-    return getColorPair();
-  }
-  return colors;
-}
+// function getColorPair(hue) {
+//   var colors = [
+//     randomColor({luminosity: 'bright', hue: hue}),
+//     randomColor({luminosity: 'bright', hue: hue})
+//   ];
+//   var readability = tinycolor.readability(colors[0], colors[1]);
+//   if (readability < 2) {
+//     console.log(readability);
+//     console.log('getting another set of colors');
+//     return getColorPair();
+//   }
+//   return colors;
+// }
+
+// function getRandomHue() {
+//   var colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'pink'];
+//   var randInt = Math.floor(Math.random() * 7);
+//   var hue = colors[randInt];
+//   console.log(hue)
+//   return hue;
+// }
 
 function makeElements(size) {
-  var width = $(document).width();
-  var height = $(document).height();
-  var num = Math.floor(width/(size+30)) * Math.floor(height/(size+30)); // cool.
+  var width = $(window).width();
+  var height = $(window).height();
+
+  var columns = Math.floor(width/(size+30));
+  var rows = Math.floor(height/(size+30));
+  var num = rows * columns;
+
+  var containerHeight = rows * (size + 30);
+  var containerWidth = columns * (size + 30);
+
+  $('.container').css({
+    width: containerWidth + 'px',
+    height: containerHeight + 'px'
+  });
 
   var iconDiv;
   var icon;
@@ -88,10 +109,6 @@ function makeElements(size) {
   }
 }
 
-function getRandomHue() {
-  var colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'pink'];
-  var randInt = Math.floor(Math.random() * 7);
-  var hue = colors[randInt];
-  console.log(hue)
-  return hue;
+function clearElements() {
+  $('.container').html('');
 }

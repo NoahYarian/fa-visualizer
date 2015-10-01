@@ -43,20 +43,25 @@ gulp.task('js', function () {
 });
 
 gulp.task('bower', function () {
-  // var filterCSS = $.filter('**/*.css');
+  var filterCSS = $.filter('**/*.css');
   var filterJS = $.filter('**/*.js');
   var overrides = {
     jquery: {
       main: [
         './dist/jquery.min.js'
       ]
+    },
+    'font-awesome': {
+      main: [
+        './css/font-awesome.css'
+      ]
     }
   }
-  // gulp
-  //   .src($.mainBowerFiles({overrides: overrides, debugging: true}))
-  //   .pipe(filterCSS)
-  //   .pipe($.concat('build.css'))
-  //   .pipe(gulp.dest('public/lib'));
+  gulp
+    .src($.mainBowerFiles({overrides: overrides, debugging: true}))
+    .pipe(filterCSS)
+    .pipe($.concat('build.css'))
+    .pipe(gulp.dest('public/lib'));
   gulp
     .src($.mainBowerFiles({overrides: overrides, debugging: true}))
     .pipe(filterJS)
@@ -75,6 +80,8 @@ gulp.task('browser-sync', function() {
 gulp.task('copy', function () {
   gulp.src(['src/assets/**/*'])
     .pipe(gulp.dest('public/assets'));
+  gulp.src(['src/fonts/**/*'])
+    .pipe(gulp.dest('public/fonts'));
 });
 
 gulp.task('build:dev', ['jade', 'sass', 'js', 'bower', 'copy']);
@@ -85,6 +92,7 @@ gulp.task('serve', ['build:dev'], function () {
   gulp.watch(['src/**/*.scss'], ['sass']).on('change', $.browserSync.reload);
   gulp.watch(['src/**/*.js'], ['js']).on('change', $.browserSync.reload);
   gulp.watch(['src/assets/*.*'], ['copy']).on('change', $.browserSync.reload);
+
 });
 
 gulp.task('default', ['clean'], function () {

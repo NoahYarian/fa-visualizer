@@ -3,7 +3,7 @@ console.log('main.js is loaded');
 var settings = {
   size: 150,
   luminosity: 'light',
-  colorCombo: 'splitcomplement',
+  colorCombo: 'triad',
   svg: false,
   icons: 'random',
 }

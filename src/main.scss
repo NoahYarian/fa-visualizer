@@ -67,3 +67,17 @@ html, body, .center1, .center2 {
   background: black;
   color: #fafafa;
 }
+
+.squares {
+  width: 200px;
+  border: 2px solid #fafafa;
+  background: #363636;
+  padding: 20px 0;
+  input {
+    padding: 5px;
+    margin: 3px;
+    &:focus {
+      outline: none;
+    }
+  }
+}

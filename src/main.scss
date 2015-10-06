@@ -135,6 +135,25 @@ html, body, .center1, .center2, .absPos {
   }
 }
 
+#results {
+  position: absolute;
+  background: #707070;
+  border: 2px solid #FAFAFA;
+  padding: 10px;
+  color: #FAFAFA;
+  font-family: sans-serif;
+  width: 176px;
+  text-align: center;
+  a:hover {
+    cursor: pointer;
+    color: #FF9900;
+  }
+}
+
 .drawnSquare {
   box-sizing: border-box;
+}
+
+.hidden {
+  display: none;
 }

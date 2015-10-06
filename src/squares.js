@@ -11,7 +11,30 @@ $(window).resize(function() {
 });
 
 $('input').change(drawSquares);
-$('#trySquares').click(drawSquares);
+$('#find').click(function() {
+  $('#results')
+    .empty()
+    .removeClass('hidden');
+  var width = $(window).width();
+  var height = $(window).height();
+  var square = +$('#square').val();
+  var squareMin = +$('#squareMin').val();
+  var squareMax = +$('#squareMax').val();
+  var gutter = +$('#gutter').val();
+  var gutterMin = +$('#gutterMin').val();
+  var gutterMax = +$('#gutterMax').val();
+  var results = findSquares(width, height, square, gutter, squareMin, squareMax, gutterMin, gutterMax);
+  console.log(results);
+  results.forEach(function(result, i) {
+    var resultEle = document.createElement('a');
+    $(resultEle)
+      .appendTo($('#results'))
+      .text(`square: ${result.square}, gutter: ${result.gutter}`)
+      .click(function() {
+        drawSquares(result.square, result.gutter);
+      });
+  });
+});
 
 
 ///////////
@@ -23,13 +46,13 @@ function updateWindowSize() {
   $('#height').text('height: ' + height);
 }
 
-function drawSquares() {
+function drawSquares(square, gutter) {
   var width = $(window).width();
   var height = $(window).height();
-  var square = +$('#square').val();
+  var square = square || +$('#square').val();
   var squareMin = +$('#squareMin').val();
   var squareMax = +$('#squareMax').val();
-  var gutter = +$('#gutter').val();
+  var gutter = gutter || +$('#gutter').val();
   var gutterMin = +$('#gutterMin').val();
   var gutterMax = +$('#gutterMax').val();
 
@@ -56,7 +79,7 @@ function drawSquares() {
     console.log('problem with fit.');
   }
 
-  $('.squares').empty();
+  $('.squares').css('padding', `0 ${gutter}px ${gutter}px 0`).empty();
   var squareDiv;
   for (var i = 0; i < num; i++) {
     squareDiv = document.createElement('div');
@@ -132,10 +155,22 @@ function varySquareSide(windowWidth, windowHeight, squareSide, gutter, minSquare
   return results;
 }
 
-function getClose(windowWidth, windowHeight, squareSide, gutter, minSquareSide, maxSquareSide, minGutter, maxGutter) {
-  if (checkSquareFit(windowWidth, windowHeight, squareSide, gutter)) {
-    console.log('no need to vary the gutter or square size.');
-  } else {
-
+function findSquares(windowWidth, windowHeight, squareSide, gutter, minSquareSide, maxSquareSide, minGutter, maxGutter) {
+  var results = [];
+  for (var i = minSquareSide; i <= maxSquareSide; i++) {
+    for (var j = minGutter; j <= maxGutter; j++) {
+      if (checkSquareFit(windowWidth, windowHeight, i, j)) {
+        console.log('squareSide: ' + i +', gutter: ' + j);
+        results.push({
+          width: windowWidth,
+          height: windowHeight,
+          square: i,
+          gutter: j
+        });
+      } else {
+        console.log(i, j);
+      }
+    }
   }
+  return results;
 }

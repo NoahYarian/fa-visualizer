@@ -28,19 +28,20 @@ html
               input#square(type='number' value='50')
             div
               p square side min:
-              input#squareMin(type='number' value='')
+              input#squareMin(type='number' value='45')
             div
               p square side max:
-              input#squareMax(type='number' value='')
+              input#squareMax(type='number' value='55')
             div
               p gutter:
               input#gutter(type='number' value='0')
             div
               p gutter min:
-              input#gutterMin(type='number' value='')
+              input#gutterMin(type='number' value='0')
             div
               p gutter max:
-              input#gutterMax(type='number' value='')
-            button#trySquares SQUARES
+              input#gutterMax(type='number' value='10')
+            button#find FIND
+            #results.hidden
     script(src='lib/build.js')
     script(src='squares.js')

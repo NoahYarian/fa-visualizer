@@ -1,13 +1,16 @@
 $(function() {
   console.log('jQuery and the document are loaded');
   updateWindowSize();
+  drawSquares();
 });
 
 // listeners
 $(window).resize(function() {
   updateWindowSize();
+  drawSquares();
 });
 
+$('input').change(drawSquares);
 $('#trySquares').click(drawSquares);
 
 
@@ -33,6 +36,9 @@ function drawSquares() {
   var rows = (height - gutter) / (square + gutter);
   var cols = (width - gutter) / (square + gutter);
   var num = rows * cols;
+
+  $('#rows').text('rows: ' + rows.toString().split('').slice(0, 5).join(''));
+  $('#cols').text('columns: ' + cols.toString().split('').slice(0, 5).join(''));
 
   console.log('width: ' + width);
   console.log('height: ' + height);

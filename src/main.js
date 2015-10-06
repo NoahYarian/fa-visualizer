@@ -111,6 +111,26 @@ function getColors() {
 //   return hue;
 // }
 
+function trySquareSize(windowWidth, windowHeight, squareSize, gutter) {
+  if (
+    (windowWidth - gutter) % (squareSize + gutter) === 0 &&
+    (windowHeight - gutter) % (squareSize + gutter) === 0
+  ) {
+    console.log('it works!');
+    console.log('squareSize: ' + squareSize + 'px');
+    console.log('gutter: ' + gutter + 'px');
+    console.log('columns: ' + (windowWidth / squareSize));
+    console.log('rows: ' + (windowHeight / squareSize));
+  } else {
+    console.log('no dice.')
+    console.log('squareSize: ' + squareSize + 'px');
+    console.log('gutter: ' + gutter + 'px');
+    console.log('columns: ' + (windowWidth - gutter) / (squareSize + gutter));
+    console.log('rows: ' + (windowHeight - gutter) / (squareSize + gutter));
+  }
+}
+
+
 function makeElements(size) {
   var width = $(window).width();
   var height = $(window).height();

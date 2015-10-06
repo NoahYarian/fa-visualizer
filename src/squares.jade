@@ -14,11 +14,16 @@ html
     .center1
       .center2
         .container.squares
+          p#height height:
+          p#width width:
+          p#rows rows:
+          p#columns columns:
           input#square(placeholder='square side')
           input#squareMin(placeholder='square side min')
           input#squareMax(placeholder='square side max')
           input#gutter(placeholder='gutter')
           input#gutterMin(placeholder='gutter min')
           input#gutterMax(placeholder='gutter max')
+          button#trySquares SQUARES
     script(src='lib/build.js')
     script(src='squares.js')

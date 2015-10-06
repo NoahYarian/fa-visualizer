@@ -11,19 +11,24 @@ html
     link(rel="icon", type="image/png", href="assets/favicon32.png", sizes="32x32")
     link(rel="icon", type="image/png", href="assets/favicon16.png", sizes="16x16")
   body
-    .center1
-      .center2
-        .container.squares
-          p#height height:
-          p#width width:
-          p#rows rows:
-          p#columns columns:
-          input#square(placeholder='square side')
-          input#squareMin(placeholder='square side min')
-          input#squareMax(placeholder='square side max')
-          input#gutter(placeholder='gutter')
-          input#gutterMin(placeholder='gutter min')
-          input#gutterMax(placeholder='gutter max')
-          button#trySquares SQUARES
+    .absPos
+      .center1
+        .center2
+          .container.squares
+    .absPos
+      .center1
+        .center2
+          .container.squareOptions
+            p#width width:
+            p#height height:
+            p#rows rows:
+            p#columns columns:
+            input#square(placeholder='square side' value='50')
+            input#squareMin(placeholder='square side min' value='25')
+            input#squareMax(placeholder='square side max' value='200')
+            input#gutter(placeholder='gutter' value='10')
+            input#gutterMin(placeholder='gutter min' value='1')
+            input#gutterMax(placeholder='gutter max' value='20')
+            button#trySquares SQUARES
     script(src='lib/build.js')
     script(src='squares.js')

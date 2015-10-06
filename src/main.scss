@@ -15,6 +15,7 @@ body {
 html, body, .center1, .center2, .absPos {
   width: 100%;
   height: 100%;
+  overflow: hidden;
 }
 
 .absPos {
@@ -91,11 +92,18 @@ html, body, .center1, .center2, .absPos {
     text-align: left;
     margin: 2px 0 2px 9px;
   }
-  input {
-    padding: 5px;
-    margin: 3px;
-    &:focus {
-      outline: none;
+  div {
+    text-align: right;
+    * {
+      display: inline-block;
+    }
+    input {
+      padding: 5px;
+      margin: 3px;
+      width: 34px;
+      &:focus {
+        outline: none;
+      }
     }
   }
   #square {

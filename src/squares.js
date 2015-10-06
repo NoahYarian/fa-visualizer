@@ -23,17 +23,34 @@ function updateWindowSize() {
 function drawSquares() {
   var width = $(window).width();
   var height = $(window).height();
-  var square = $('#square').val();
-  var squareMin = $('#squareMin').val();
-  var squareMax = $('#squareMax').val();
-  var gutter = $('#gutter').val();
-  var gutterMin = $('#gutterMin').val();
-  var gutterMax = $('#gutterMax').val();
+  var square = +$('#square').val();
+  var squareMin = +$('#squareMin').val();
+  var squareMax = +$('#squareMax').val();
+  var gutter = +$('#gutter').val();
+  var gutterMin = +$('#gutterMin').val();
+  var gutterMax = +$('#gutterMax').val();
 
-  var rows = (width - gutter) / (square + gutter);
+  var rows = (height - gutter) / (square + gutter);
   var cols = (width - gutter) / (square + gutter);
   var num = rows * cols;
 
+  console.log('width: ' + width);
+  console.log('height: ' + height);
+  console.log('square: ' + square);
+  console.log('squareMin: ' + squareMin);
+  console.log('squareMax: ' + squareMax);
+  console.log('gutter: ' + gutter);
+  console.log('gutterMin: ' + gutterMin);
+  console.log('gutterMax: ' + gutterMax);
+  console.log('rows: ' + rows);
+  console.log('cols: ' + cols);
+  console.log('num: ' + num);
+
+  if (!checkSquareFit(width, height, square, gutter)) {
+    console.log('problem with fit.');
+  }
+
+  $('.squares').empty();
   var squareDiv;
   for (var i = 0; i < num; i++) {
     squareDiv = document.createElement('div');

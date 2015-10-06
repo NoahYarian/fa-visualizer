@@ -23,12 +23,24 @@ html
             p#height height:
             p#rows rows:
             p#columns columns:
-            input#square(placeholder='square side' value='50')
-            input#squareMin(placeholder='square side min' value='25')
-            input#squareMax(placeholder='square side max' value='200')
-            input#gutter(placeholder='gutter' value='10')
-            input#gutterMin(placeholder='gutter min' value='1')
-            input#gutterMax(placeholder='gutter max' value='20')
+            div
+              p square side:
+              input#square(placeholder='square side' value='50')
+            div
+              p square side min:
+              input#squareMin(placeholder='square side min' value='25')
+            div
+              p square side max:
+              input#squareMax(placeholder='square side max' value='200')
+            div
+              p gutter:
+              input#gutter(placeholder='gutter' value='0')
+            div
+              p gutter min:
+              input#gutterMin(placeholder='gutter min' value='1')
+            div
+              p gutter max:
+              input#gutterMax(placeholder='gutter max' value='20')
             button#trySquares SQUARES
     script(src='lib/build.js')
     script(src='squares.js')

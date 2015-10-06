@@ -55,7 +55,7 @@ html, body, .center1, .center2, .absPos {
   text-align: center;
 }
 
-.icon {
+.icon, #results a {
   cursor: pointer;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -145,7 +145,6 @@ html, body, .center1, .center2, .absPos {
   width: 176px;
   text-align: center;
   a:hover {
-    cursor: pointer;
     color: #FF9900;
   }
 }

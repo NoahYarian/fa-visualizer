@@ -46,13 +46,13 @@ function updateWindowSize() {
   $('#height').text('height: ' + height);
 }
 
-function drawSquares(square, gutter) {
+function drawSquares(sqr, gtr) {
   var width = $(window).width();
   var height = $(window).height();
-  var square = square || +$('#square').val();
+  var square = +sqr || +$('#square').val();
   var squareMin = +$('#squareMin').val();
   var squareMax = +$('#squareMax').val();
-  var gutter = gutter || +$('#gutter').val();
+  var gutter = +gtr || +$('#gutter').val();
   var gutterMin = +$('#gutterMin').val();
   var gutterMax = +$('#gutterMax').val();
 

@@ -11,6 +11,7 @@ $(window).resize(function() {
 });
 
 $('input').change(drawSquares);
+
 $('#find').click(function() {
   $('#results')
     .empty()
@@ -32,12 +33,22 @@ $('#find').click(function() {
       .text(`square: ${result.square}, gutter: ${result.gutter}`)
       .click(function() {
         drawSquares(result.square, result.gutter);
+        updateInputFields({square: result.square, gutter: result.gutter});
       });
   });
 });
 
 
 ///////////
+
+function updateInputFields(options) {
+  if (options.square) {
+    $('#square').val(options.square);
+  }
+  if (options.gutter) {
+    $('#gutter').val(options.gutter);
+  }
+}
 
 function updateWindowSize() {
   var width = $(window).width();

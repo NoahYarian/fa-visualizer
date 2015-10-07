@@ -46,7 +46,7 @@ function updateWindowSize() {
   $('#height').text('height: ' + height);
 }
 
-function drawSquares(sqare, gutter) {
+function drawSquares(square, gutter) {
   var width = $(window).width();
   var height = $(window).height();
   var square = +square || +$('#square').val();
@@ -187,14 +187,37 @@ function findSquares(windowWidth, windowHeight, squareSide, gutter, minSquareSid
   return results;
 }
 
-function getClose(square, gutter, minSquareSide, maxSquareSide, minGutter, maxGutter) {
-  var width = $(window).width();
-  var height = $(window).height();
-  // assume there is no perfect fit found with findSquares
-  // start over with the given values and modify the window 1px at a time
+function varyContainer(square, gutter, variation) {  // too many variables everywhere. simplifying.
+  var width = $(window).width(); // 1172, e.g.
+  var height = $(window).height(); // 835, e.g.
 
+  if (checkSquareFit(width, height, square, gutter)) {
+    return [width, height, square, gutter];
+  }
+
+  for (var i = 0; i < variation; i++) {
+    if (checkSquareFit(width-i, height-i, square, gutter)) {
+      return [width, height, square, gutter];
+    }
+  }
+  return false;
 }
 
+// http://stackoverflow.com/questions/17445231/js-how-to-find-the-greatest-common-divisor
+function gcd(a,b) {
+    if (a < 0) a = -a;
+    if (b < 0) b = -b;
+    if (b > a) {var temp = a; a = b; b = temp;}
+    while (true) {
+        if (b == 0) return a;
+        a %= b;
+        if (a == 0) return b;
+        b %= a;
+    }
+}
+
+// round both width and height to the nearest [squareSide] and it will work.
+// same as what i did before by using Math.floor() on the rows and columns.
 
 // what is the point of this? :-|
 // fill a window with squares that reach the edge if possible.
@@ -212,3 +235,115 @@ function getClose(square, gutter, minSquareSide, maxSquareSide, minGutter, maxGu
 //   shapes - transform divs - rotate, scale, etc.
 //   icons
 //   border styles
+
+
+// ok, so one side of this is making the squares, and the other is about animating them to music.
+//
+
+function vary(square, gutter, whatToVary, maxVariation) {
+  var width = $(window).width();
+  var height = $(window).height();
+
+  if (whatToVary === 'square') {
+
+    for (var i = 0; i < maxVariation; i++) {
+      if (checkSquareFit(width, height, square-i, gutter)) {
+        return [width, height, square-i, gutter];
+      } else if (checkSquareFit(width, height, square+i, gutter)) {
+        return [width, height, square+i, gutter];
+      }
+    }
+
+  } else if (whatToVary === 'gutter') {
+
+    for (var i = 0; i < maxVariation; i++) {
+      if (checkSquareFit(width, height, square, gutter-1)) {
+        return [width, height, square, gutter-i];
+      } else if (checkSquareFit(width, height, square, gutter+i)) {
+        return [width, height, square, gutter+i];
+      }
+    }
+
+  } else if (whatToVary === 'container') {  // this can be improved.
+
+    for (var i = 0; i < maxVariation; i++) {
+      if (checkSquareFit(width-i, height-i, square, gutter)) {
+        return [width-i, height-i, square, gutter];
+      }
+    }
+
+  } else if (whatToVary === 'width') {  // this can be improved.
+
+    for (var i = 0; i < maxVariation; i++) {
+      if (checkSquareFit(width-i, height, square, gutter)) {
+        return [width-i, height, square, gutter];
+      }
+    }
+
+  } else if (whatToVary === 'height') {  // this can be improved.
+
+    for (var i = 0; i < maxVariation; i++) {
+      if (checkSquareFit(width, height-i, square, gutter)) {
+        return [width, height-i, square, gutter];
+      }
+    }
+
+  } else {
+    console.log('Vary unsuccessful!');
+  }
+
+}
+
+// figure out what square size within the accepted range will make a container fit most closely
+// to the edges of the window
+
+function getClose(square, gutter, maxVariation) { // working...ish?
+  var width = $(window).width();
+  var height = $(window).height();
+  var results = [];
+  var widthDiff, heightDiff, combinedDiff, lowestDiff;
+
+  if (checkSquareFit(width, height, square, gutter)) {
+    return {
+      width: width,
+      height: height,
+      square: square,
+      gutter: gutter,
+      combinedDiff: 0
+    }
+  }
+
+  for (var i = 0; i < maxVariation; i++) {
+    results.push(getDiff(width, height, square-i, gutter));
+    results.push(getDiff(width, height, square+i, gutter));
+  }
+  console.log(results);
+
+  results.forEach(function(result) {
+    if (!lowestDiff || result.combinedDiff < lowestDiff.combinedDiff) {
+      lowestDiff = result;
+    }
+  });
+
+  var cols = Math.round((width - gutter) / (lowestDiff.square + gutter));
+  var rows = Math.round((height - gutter) / (lowestDiff.square + gutter));
+
+  var newWidth = (cols * lowestDiff.square) + ((cols - 1) * gutter);
+  var newHeight = (rows * lowestDiff.square) + ((rows - 1) * gutter);
+
+  return [newWidth, newHeight, lowestDiff.square, gutter, lowestDiff.combinedDiff];
+
+}
+
+function getDiff(width, height, square, gutter) {
+  var widthDiff = (width - gutter) % (square + gutter);
+  var heightDiff = (height - gutter) % (square + gutter);
+  var combinedDiff = widthDiff + heightDiff;
+  return {
+    width: width,
+    height: height,
+    square: square,
+    gutter: gutter,
+    combinedDiff: combinedDiff
+  }
+}

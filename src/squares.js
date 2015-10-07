@@ -46,13 +46,13 @@ function updateWindowSize() {
   $('#height').text('height: ' + height);
 }
 
-function drawSquares(sqr, gtr) {
+function drawSquares(sqare, gutter) {
   var width = $(window).width();
   var height = $(window).height();
-  var square = +sqr || +$('#square').val();
+  var square = +square || +$('#square').val();
   var squareMin = +$('#squareMin').val();
   var squareMax = +$('#squareMax').val();
-  var gutter = +gtr || +$('#gutter').val();
+  var gutter = +gutter || +$('#gutter').val();
   var gutterMin = +$('#gutterMin').val();
   var gutterMax = +$('#gutterMax').val();
 
@@ -80,8 +80,9 @@ function drawSquares(sqr, gtr) {
   }
 
   $('.squares').css('padding', `0 ${gutter}px ${gutter}px 0`).empty();
-  var squareDiv;
+  var squareDiv, border;
   for (var i = 0; i < num; i++) {
+    border = new Border();
     squareDiv = document.createElement('div');
     $(squareDiv)
       .addClass('drawnSquare')
@@ -91,9 +92,20 @@ function drawSquares(sqr, gtr) {
         'margin-left': gutter,
         'margin-top': gutter,
         'background': randomColor({luminosity: 'bright'}),
-        'border': '5px solid ' + randomColor({luminosity: 'bright'})
+        'border-style': border.styles.join(' '),
+        'border-color': border.colors.join(' '),
+        'border-width': '5px',
       });
     $('.squares').append(squareDiv);
+  }
+}
+
+function Border() {
+  var styles = ['none', 'dotted', 'dashed', 'solid', 'double', 'groove', 'ridge', 'inset', 'outset'];
+  this.styles = [];
+  this.colors = randomColor({count: 4, luminosity: 'bright'});
+  for (var i = 0; i < 4; i++) {
+    this.styles.push(styles[Math.floor(Math.random() * 9)]);
   }
 }
 
@@ -174,3 +186,29 @@ function findSquares(windowWidth, windowHeight, squareSide, gutter, minSquareSid
   }
   return results;
 }
+
+function getClose(square, gutter, minSquareSide, maxSquareSide, minGutter, maxGutter) {
+  var width = $(window).width();
+  var height = $(window).height();
+  // assume there is no perfect fit found with findSquares
+  // start over with the given values and modify the window 1px at a time
+
+}
+
+
+// what is the point of this? :-|
+// fill a window with squares that reach the edge if possible.
+// if not possible by changing the side length or gutter size within the range given,
+//   alter the centered container size as needed
+// Maybe this is difficult because it's about prioritizing variables in a certain order.
+// Which is the most important? square size, gutter size, or container size? Which is least?
+
+// I think the container size isnt as important as the consistency of the proportions of it are.
+// If it was smaller by however much but the border around it was even on all sides It would look good.
+
+// Things to alter over time, depending on song beat information --
+//   sizes - square, gutter, container, border, icon
+//   colors - square, border, background, icon
+//   shapes - transform divs - rotate, scale, etc.
+//   icons
+//   border styles

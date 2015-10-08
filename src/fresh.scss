@@ -1,7 +1,6 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 html, body, .center1, .center2, .squares {
@@ -29,6 +28,33 @@ body {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  border: 1px solid red;
   margin: 0 auto;
+}
+
+.square {
+  box-sizing: border-box;
+}
+
+#btn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 92px;
+  height: 30px;
+  margin: 12px auto 6px;
+  font-family: sans-serif;
+  background: #848484;
+  border: 3px solid #afafaf;
+  color: #fafafa;
+  font-size: 1em;
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    color: #000;
+  }
+  &:active {
+    transform: translate(1px, 1px);
+    box-shadow: 0 0 10px #fff;
+  }
 }

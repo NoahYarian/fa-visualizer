@@ -90,7 +90,10 @@ function drawSquares(square, gutter) {
     console.log('problem with fit.');
   }
 
-  $('.squares').css('padding', `0 ${gutter}px ${gutter}px 0`).empty();
+  // $('.squares').css('padding', `0 ${gutter}px ${gutter}px 0`).empty();
+  // $('.squares').css('padding', `${gutter}px 0 0 ${gutter}px`).empty();
+  $('.squares').empty();
+
   var squareDiv, border;
   for (var i = 0; i < num; i++) {
     border = new Border();
@@ -109,6 +112,7 @@ function drawSquares(square, gutter) {
       });
     $('.squares').append(squareDiv);
   }
+  // $('.squares div:nth-child(' + Math.round(cols) + 'n)').css('margin-left', 0); //meh
 }
 
 function Border() {
@@ -130,7 +134,7 @@ function checkSquareFit(windowWidth, windowHeight, squareSide, gutter) {
     console.log('squareSide: ' + squareSide + 'px');
     console.log('gutter: ' + gutter + 'px');
     console.log('columns: ' + (windowWidth - gutter) / (squareSide + gutter));
-    console.log('rows: ' + (windowWidth - gutter) / (squareSide + gutter));
+    console.log('rows: ' + (windowHeight - gutter) / (squareSide + gutter));
     return true;
   } else {
     console.log('no dice.')
@@ -249,7 +253,19 @@ function gcd(a,b) {
 
 
 // ok, so one side of this is making the squares, and the other is about animating them to music.
+// what is my MVP for these squares?
+// - appear centered in the window
+// -
+
+// idea - breakpoints for determined container size.
+// My mac - full screen - 1440x900, windowed chrome w/ toolbar -
+// most common sizes, in order - 1366x768 1920x1080 1024x768 1280x800 1440x900 1280x1024
+// 1000px - 200px covers 90%+ of css-tricks' users
 //
+// ok... how about just a few sizes to work with for now.
+// ----- 1440x900
+// ----- 1440x727
+// ----- 1000x700
 
 function vary(square, gutter, whatToVary, maxVariation) {
   var width = $(window).width();
@@ -358,3 +374,5 @@ function getDiff(width, height, square, gutter) {
     combinedDiff: combinedDiff
   }
 }
+
+//could decrease width by 1 at a time, then check height for a range of +/- 10, e.g.

@@ -1,0 +1,47 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    meta(name="description" content="squares that are fresh")
+    title fresh squares
+    link(rel='stylesheet', href='lib/build.css')
+    link(rel='stylesheet', href='fresh.css')
+    link(rel="icon", type="image/png", href="assets/favicon32.png", sizes="32x32")
+    link(rel="icon", type="image/png", href="assets/favicon16.png", sizes="16x16")
+  body
+    .absPos
+      .center1
+        .center2
+          .container.squares
+    .absPos
+      .center1
+        .center2
+          .container.squareOptions
+            p#width width:
+            p#height height:
+            p#rows rows:
+            p#cols columns:
+            div
+              p square size:
+              input#square(type='number' value='50')
+            div
+              p square min:
+              input#squareMin(type='number' value='10')
+            div
+              p square max:
+              input#squareMax(type='number' value='100')
+            div
+              p gutter size:
+              input#gutter(type='number' value='0')
+            div
+              p gutter min:
+              input#gutterMin(type='number' value='0')
+            div
+              p gutter max:
+              input#gutterMax(type='number' value='25')
+            button#find FIND
+            #results.hidden
+    script(src='lib/build.js')
+    script(src='fresh.js')

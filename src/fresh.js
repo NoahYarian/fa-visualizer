@@ -9,6 +9,9 @@
 // - change visually according to beat information
 // - change without lagging noticeably
 
+///// notes
+// write a function that finds the container sizes that allow for the highest number of square sizes
+
 $(function() {
   console.log('jQuery and the document are loaded');
   setContainerSize();
@@ -34,10 +37,24 @@ function setContainerSize() {
   $('.squares').css({width: w, height: h});
 }
 
-// -- 1440x900 -- 10,12,15,18,20,30,36,45,60,90,180
-// -- 1440x720 -- 10,12,15,16,18,20,24,30,36,40,45,48,60,72,80,90,120,144,180,240,360,720
-// -- 1260x720 -- 10,12,15,18,20,30,36,45,60,90,180
-// -- 720x480 -- 10,12,15,16,20,24,30,40,48,60,80,120,240
+function getRandSquare() {
+  var w = $('.squares').width() + 'x' + $('.squares').height();
+
+  if (w === '1440x900') {
+    return pickOne([10,12,15,18,20,30,36,45,60,90,180]);
+  } else if (w === '1440x720') {
+    return pickOne([10,12,15,16,18,20,24,30,36,40,45,48,60,72,80,90,120,144,180,240,360,720]);
+  } else if (w === '1260x720') {
+    return pickOne([10,12,15,18,20,30,36,45,60,90,180]);
+  } else {
+    return pickOne([10,12,15,16,20,24,30,40,48,60,80,120,240]);
+  }
+
+}
+// 1440x900 = [10,12,15,18,20,30,36,45,60,90,180];
+// 1440x720 = [10,12,15,16,18,20,24,30,36,40,45,48,60,72,80,90,120,144,180,240,360,720];
+// 1260x720 = [10,12,15,18,20,30,36,45,60,90,180];
+// 720x480 = [10,12,15,16,20,24,30,40,48,60,80,120,240];
 
 function drawSquares() {
 

@@ -119,16 +119,30 @@ function Border() {
 }
 
 function freshen() {
-  var rot = $('.square').data('rotate') || 0;
-  console.log(rot);
-  rot += rand(0,360);
-  console.log(rot);
-  $('.square').css({
-    transition: '0.5s',
-    '-webkit-filter': 'hue-rotate(' + rot + 'deg)',
-    transform: 'rotate(' + rot + 'deg)'
-  });
-  // $('.square').toggleClass('rotate');
+  if (Math.round(Math.random())) {
+    var rot = $('.square').data('rotate') || 0;
+    console.log(rot);
+    rot += rand(-360,360);
+    console.log(rot);
+    $('.square')
+      .css({
+        transition: rand(0.1,2) + 's',
+        '-webkit-filter': 'hue-rotate(' + rot + 'deg)',
+        transform: 'rotate(' + rot + 'deg)',
+        'transform-origin': rand(-100,100) + '% ' + rand(-100,100) + '%'
+      })
+      .data('rotate', rot);
+  } else {
+    var scaleX = rand(-1,1);
+    var scaleY = rand(-1,1);
+    $('.square')
+      .css({
+        transition: rand(0.1,2) + 's',
+        '-webkit-filter': 'hue-rotate(' + rand(0,360) + 'deg)',
+        transform: 'scale(' + scaleX + ', ' + scaleY + ')',
+        // 'transform-origin': rand(-100,100) + '% ' + rand(-100,100) + '%'
+      });
+  }
 }
 
 

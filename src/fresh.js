@@ -13,8 +13,13 @@
 // - change visually according to beat information
 // - change without lagging noticeably
 
+$(function() {
+  console.log('jQuery and the document are loaded');
+  setContainerSize();
+  drawSquares();
+});
 
-function whatSize() {
+function setContainerSize() {
   var width = $(window).width();
   var height = $(window).height();
   var w = 650;
@@ -30,7 +35,9 @@ function whatSize() {
     w = 1000;
     h = 700;
   }
-  return {width: w, height: h}
+  $('.squares').css({width: w, height: h});
 }
 
-function drawSquares()
+function drawSquares() {
+
+}

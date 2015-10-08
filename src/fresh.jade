@@ -11,37 +11,8 @@ html
     link(rel="icon", type="image/png", href="assets/favicon32.png", sizes="32x32")
     link(rel="icon", type="image/png", href="assets/favicon16.png", sizes="16x16")
   body
-    .absPos
-      .center1
-        .center2
-          .container.squares
-    .absPos
-      .center1
-        .center2
-          .container.squareOptions
-            p#width width:
-            p#height height:
-            p#rows rows:
-            p#cols columns:
-            div
-              p square size:
-              input#square(type='number' value='50')
-            div
-              p square min:
-              input#squareMin(type='number' value='10')
-            div
-              p square max:
-              input#squareMax(type='number' value='100')
-            div
-              p gutter size:
-              input#gutter(type='number' value='0')
-            div
-              p gutter min:
-              input#gutterMin(type='number' value='0')
-            div
-              p gutter max:
-              input#gutterMax(type='number' value='25')
-            button#find FIND
-            #results.hidden
+    .center1
+      .center2
+        .squares
     script(src='lib/build.js')
     script(src='fresh.js')

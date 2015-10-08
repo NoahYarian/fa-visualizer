@@ -30,7 +30,7 @@ gulp.task('jade', function () {
 
 gulp.task('sass', function () {
   gulp
-    .src('src/main.scss')
+    .src('src/*.scss')
     .pipe($.sass()
       .on('error', $.sass.logError))
     .pipe(gulp.dest('public'));

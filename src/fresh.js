@@ -10,6 +10,8 @@
 // - change without lagging noticeably
 
 ///// notes
+// https://en.wikipedia.org/wiki/Highly_composite_number
+// Largely composite numbers - http://oeis.org/A067128/internal
 // write a function that finds the container sizes that allow for the highest number of square sizes
 // 1440x900 = [10,12,15,18,20,30,36,45,60,90,180];
 // 1440x720 = [10,12,15,16,18,20,24,30,36,40,45,48,60,72,80,90,120,144,180,240,360,720];
@@ -30,6 +32,8 @@ $(window).resize(function() {
 });
 
 $('#btn').click(drawSquares);
+
+$('#btn2').click(freshen);
 
 ///////////////
 
@@ -114,12 +118,27 @@ function Border() {
   }
 }
 
-
+function freshen() {
+  var rot = $('.square').data('rotate') || 0;
+  console.log(rot);
+  rot += rand(0,360);
+  console.log(rot);
+  $('.square').css({
+    transition: '0.5s',
+    '-webkit-filter': 'hue-rotate(' + rot + 'deg)',
+    transform: 'rotate(' + rot + 'deg)'
+  });
+  // $('.square').toggleClass('rotate');
+}
 
 
 
 
 // utility functions
+
+function rand(min, max) {
+  return Math.random() * (max - min) + min;
+}
 
 function pickOne(arr) {
   var rand = Math.floor(Math.random() * arr.length);
